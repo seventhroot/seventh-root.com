@@ -76,7 +76,7 @@ function get_user_by_id($id) {
 function get_user_by_name($name) {
   $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
   $stmt = $mysqli->prepare("SELECT id, name, email, password_hash FROM user WHERE name = ? LIMIT 1");
-  $stmt->bind_param("i", $name);
+  $stmt->bind_param("s", $name);
   $stmt->execute();
   $res = $stmt->get_result();
 	if ($res->num_rows > 0) {
