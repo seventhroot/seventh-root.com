@@ -1,6 +1,7 @@
 <?php
 include_once 'user.php';
 include_once 'thread.php';
+include_once 'database_settings.php';
 
 class Post {
 
@@ -68,7 +69,7 @@ class Post {
 }
 
 function get_post_by_id($id) {
-  $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+  $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
   $stmt = $mysqli->prepare("SELECT id, thread, reply_to, user, text, timestamp FROM post WHERE id = ? LIMIT 1");
   $stmt->bind_param("i", $id);
   $stmt->execute();
@@ -92,7 +93,7 @@ function get_post_by_id($id) {
 }
 
 function create_post($thread, $user, $text, $reply_to=NULL) {
-  $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+  $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
   if (is_null($reply_to)) {
     $stmt = $mysqli->prepare("INSERT INTO post(thread, user, text) VALUES (?, ?, ?)");
     $stmt->bind_param("iis", $thread->get_id(), $user->get_id(), $text);

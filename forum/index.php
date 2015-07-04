@@ -1,6 +1,7 @@
 <?php
 include_once '../includes/user.php';
 include_once '../includes/permissions.php';
+include_once '../includes/database_settings.php';
 session_start();
 ?>
 <!DOCTYPE html>
@@ -21,7 +22,7 @@ session_start();
       echo '<div class="path">' . "\n";
       echo ' &raquo; Forum' . "\n";
       echo '</div>' . "\n";
-      $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+      $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
       $stmt = $mysqli->prepare("SELECT id, title FROM topic WHERE parent IS NULL");
       $stmt->execute();
       $res = $stmt->get_result();

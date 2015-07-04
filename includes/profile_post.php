@@ -1,5 +1,6 @@
 <?php
 include_once 'user.php';
+include_once 'database_settings.php';
 
 class ProfilePost {
 
@@ -66,7 +67,7 @@ class ProfilePost {
 }
 
 function get_profile_post_by_id($id) {
-  $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+  $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
   $stmt = $mysqli->prepare("SELECT id, profile, reply_to, user, text, timestamp FROM profile_post WHERE id = ? LIMIT 1");
   $stmt->bind_param("i", $id);
   $stmt->execute();
@@ -90,7 +91,7 @@ function get_profile_post_by_id($id) {
 }
 
 function create_profile_post($profile, $user, $text, $reply_to=NULL) {
-  $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+  $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
   if (is_null($reply_to)) {
     $stmt = $mysqli->prepare("INSERT INTO profile_post(profile, user, text) VALUES (?, ?, ?)");
     $stmt->bind_param("iis", $profile->get_id(), $user->get_id(), $text);
@@ -106,7 +107,7 @@ function create_profile_post($profile, $user, $text, $reply_to=NULL) {
 }
 
 function print_profile_posts($profile) {
-  $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+  $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
   $stmt = $mysqli->prepare("SELECT id, profile, reply_to, user, text, timestamp FROM profile_post WHERE profile = ? AND reply_to IS NULL ORDER BY timestamp DESC");
   $stmt->bind_param("i", $profile->get_id());
   $stmt->execute();
@@ -128,7 +129,7 @@ function print_profile_posts($profile) {
 
 function print_profile_post($profile_post) {
   $profile_id = $profile_post->get_profile()->get_id();
-  $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+  $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
   $stmt = $mysqli->prepare("SELECT profile_post.id AS post_id, profile_post.user AS user_id, profile_post.text AS post_text, user.name AS user_name, user.email AS user_email FROM profile_post, user WHERE profile_post.id = ? AND profile_post.user = user.id ORDER BY timestamp");
   $stmt->bind_param("i", $profile_post->get_id());
   $stmt->execute();

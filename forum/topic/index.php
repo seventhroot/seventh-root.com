@@ -5,6 +5,7 @@ include_once '../../includes/thread.php';
 include_once '../../includes/post.php';
 include_once '../../includes/parsedown.php';
 include_once '../../includes/permissions.php';
+include_once '../../includes/database_settings.php';
 session_start();
 ?>
 <!DOCTYPE html>
@@ -26,7 +27,7 @@ session_start();
       if (isset($_GET['id'])) {
         $id = $_GET['id'];
       }
-      $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+      $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
       $stmt = NULL;
       if (is_null($id)) {
         $stmt = $mysqli->prepare("SELECT id, title FROM topic WHERE parent IS NULL");

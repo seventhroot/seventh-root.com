@@ -1,4 +1,6 @@
 <?php
+include_once 'database_settings.php';
+
 class Topic {
 
   private $id;
@@ -50,7 +52,7 @@ class Topic {
 }
 
 function get_topic_by_id($id) {
-  $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+  $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
   $stmt = $mysqli->prepare("SELECT id, title, parent FROM topic WHERE id = ? LIMIT 1");
   $stmt->bind_param("i", $id);
   $stmt->execute();
@@ -72,7 +74,7 @@ function get_topic_by_id($id) {
 }
 
 function get_topic_by_title($title) {
-  $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+  $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
   $stmt = $mysqli->prepare("SELECT id, title, parent FROM topic WHERE title = ? LIMIT 1");
   $stmt->bind_param("i", $id);
   $stmt->execute();
@@ -91,7 +93,7 @@ function get_topic_by_title($title) {
 }
 
 function create_topic($title, $parent = NULL) {
-  $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+  $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
   if (is_null($parent)) {
     $stmt = $mysqli->prepare("INSERT INTO topic(title) VALUES (?)");
     $stmt->bind_param("s", $title);

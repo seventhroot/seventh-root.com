@@ -1,4 +1,6 @@
 <?php
+include_once 'database_settings.php';
+
 class User {
 
   private $id;
@@ -54,7 +56,7 @@ class User {
 }
 
 function get_user_by_id($id) {
-  $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+  $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
   $stmt = $mysqli->prepare("SELECT id, name, email, password_hash FROM user WHERE id = ? LIMIT 1");
   $stmt->bind_param("i", $id);
   $stmt->execute();
@@ -74,7 +76,7 @@ function get_user_by_id($id) {
 }
 
 function get_user_by_name($name) {
-  $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+  $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
   $stmt = $mysqli->prepare("SELECT id, name, email, password_hash FROM user WHERE name = ? LIMIT 1");
   $stmt->bind_param("s", $name);
   $stmt->execute();
@@ -97,7 +99,7 @@ function create_user($name, $email, $password) {
   if (is_null(get_user_by_name($name))) {
     $user = new User();
     $user->set_name($name)->set_email($email)->set_password($password);
-    $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+    $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
     $stmt = $mysqli->prepare("INSERT INTO user(name, email, password_hash) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $user->get_name(), $user->get_email(), $user->get_password_hash());
     $stmt->execute();

@@ -1,6 +1,7 @@
 <?php
 include_once 'user.php';
 include_once 'topic.php';
+include_once 'database_settings.php';
 
 class Thread {
 
@@ -36,7 +37,7 @@ class Thread {
   }
 
   public function draw() {
-    $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+    $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
     $stmt = $mysqli->prepare("SELECT post.id AS post_id, post.user AS user_id, post.text AS post_text, user.name AS user_name, user.email AS user_email FROM post, user WHERE post.reply_to IS NULL AND post.thread = ? AND post.user = user.id ORDER BY timestamp DESC");
     $stmt->bind_param("i", $this->get_id());
     $stmt->execute();
@@ -74,7 +75,7 @@ class Thread {
 
   public function draw_post($post_id) {
     $thread_id = $this->get_id();
-    $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+    $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
     $stmt = $mysqli->prepare("SELECT post.id AS post_id, post.user AS user_id, post.text AS post_text, user.name AS user_name, user.email AS user_email FROM post, user WHERE post.id = ? AND post.user = user.id ORDER BY timestamp DESC");
     $stmt->bind_param("i", $post_id);
     $stmt->execute();
@@ -121,7 +122,7 @@ class Thread {
 }
 
 function get_thread_by_id($id) {
-  $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+  $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
   $stmt = $mysqli->prepare("SELECT id, title, topic FROM thread WHERE id = ? LIMIT 1");
   $stmt->bind_param("i", $id);
   $stmt->execute();
@@ -140,7 +141,7 @@ function get_thread_by_id($id) {
 }
 
 function get_thread_by_title($title) {
-  $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+  $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
   $stmt = $mysqli->prepare("SELECT id, title, topic FROM thread WHERE title = ? LIMIT 1");
   $stmt->bind_param("s", $title);
   $stmt->execute();
@@ -159,7 +160,7 @@ function get_thread_by_title($title) {
 }
 
 function create_thread($title, $topic) {
-  $mysqli = new mysqli("localhost", "seventhroot", "mN6?XdL)%jK", "seventhroot");
+  $mysqli = new mysqli(get_db_host(), get_db_user(), get_db_password(), get_db_database());
   $stmt = $mysqli->prepare("INSERT INTO thread(title, topic) VALUES (?, ?)");
   $stmt->bind_param("si", $title, $topic->get_id());
   $stmt->execute();
