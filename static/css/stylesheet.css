@@ -312,3 +312,10 @@ td.profile-name {
   width: 100%;
   border-left: 2px solid #03072F;
 }
+
+iframe {
+  width: 100%;
+  height: 320px;
+  margin-left: 0;
+  margin-right: 0;
+}
