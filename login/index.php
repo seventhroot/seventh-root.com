@@ -6,6 +6,8 @@ session_start();
 <html>
   <head>
     <title>Seventh Root - Login</title>
+    <script type="application/javascript" src="/static/js/jquery-2.1.4.min.js"></script>
+    <script type="application/javascript" src="/static/js/jquery.chroma-hash.min.js"></script>
     <?php include '../includes/stylesheets.php'; ?>
   </head>
   <body>
