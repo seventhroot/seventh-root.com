@@ -27,6 +27,7 @@ session_start();
       <div class="container">
         <h1><span class="fa fa-headphones fa-lg"></span> Mumble</h1>
         <a href="mumble://seventh-root.com/General/General%20%5B1%5D%20-%20Ignis?title=Seventh%20Root&version=1.2.0">seventh-root.com</a>
+        <iframe src="/MumPI/viewer/index.php?serverId=1"></iframe>
       </div>
       <div class="container">
         <h1><span class="fa fa-steam-square fa-lg"></span> Steam</h1>
