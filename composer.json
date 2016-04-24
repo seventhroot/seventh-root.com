@@ -1,0 +1,7 @@
+{
+    "require": {
+        "twbs/bootstrap": "^3.3",
+        "twig/twig": "^1.24",
+        "fortawesome/font-awesome": "^4.5"
+    }
+}

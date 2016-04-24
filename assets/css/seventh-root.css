@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "Arcon";
+  src: url("../fonts/Arcon-Regular.eot");
+  src: url("../fonts/Arcon-Regular.eot") format("embedded-opentype"), url("../fonts/Arcon-Regular.woff2") format("woff2"), url("../fonts/Arcon-Regular.woff") format("woff"), url("../fonts/Arcon-Regular.ttf") format("truetype"), url("../fonts/Arcon-Regular.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: Arcon;
+  font-size: 18px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
